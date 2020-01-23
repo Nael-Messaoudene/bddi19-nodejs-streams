@@ -15,7 +15,7 @@ wsServer.on("connection", client => {
     console.log("message from client: ", message);
   })
 
-  client.send("Bienvenue sur le stream de la ligue des champions");
+  client.send("Bienvenue sur le stream : Football");
 
   twitterStream.on("data", tweet => {
     client.send(tweet.text);
