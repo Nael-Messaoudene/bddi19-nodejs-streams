@@ -6,7 +6,17 @@
   <title>BDDI - Node js twitter API </title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <script>
+
+
+
+
+
+
+
+
+
     console.log("It works!");
     const socket = new WebSocket(`ws://${window.location.hostname}:${window.location.port}`);
 
@@ -16,22 +26,34 @@
 
     socket.addEventListener('message', event => {
 
-      let node = document.createElement("LI");                 // Create a <li> node
-      let textnode = document.createTextNode(event.data);         // Create a text node
-      node.appendChild(textnode);                              // Append the text to <li>
+      let node = document.createElement("LI");
+      let textnode = document.createTextNode(event.data);
+      node.appendChild(textnode);
       document.querySelector(".data").appendChild(node);
 
-      // console.log("new message", event.data);
+      console.log("new message", event.data);
 
       socket.send("message received!");
     });
+
+
+
+
+
+
+
+
+
+
+
   </script>
+  <link rel="preload" href="style.css" as="style" >
 </head>
 
-<body>
+<body style="margin: 0; min-height: 100vh; width: 100vw; overflow: hidden">
   <p>Hello world!</p>
 
-  <p class="data"></p>
+  <p class="data" style="height: 600px; padding: 0 40px; overflow-y: scroll"></p>
 
 </body>
 

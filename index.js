@@ -3,6 +3,7 @@ require("dotenv").config();
 const { wsServer, server } = require("./lib/server");
 const twitterStream = require("./lib/twitter");
 
+
 twitterStream.on("error", error => {
   console.error(error);
 })
@@ -14,11 +15,17 @@ wsServer.on("connection", client => {
     console.log("message from client: ", message);
   })
 
-  client.send("Welcome!");
+  client.send("Bienvenue sur le stream de la ligue des champions");
 
   twitterStream.on("data", tweet => {
     client.send(tweet.text);
-  })
-})
+    client.send(tweet.user.location);
+
+  });
+
+
+
+});
+
 
 server.listen(process.env.PORT);
