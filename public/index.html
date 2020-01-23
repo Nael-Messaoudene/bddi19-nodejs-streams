@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>TwT Streamer</title>
+  <title>BDDI - Node js twitter API </title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script>
@@ -15,7 +15,13 @@
     });
 
     socket.addEventListener('message', event => {
-      console.log("new message", event.data);
+
+      let node = document.createElement("LI");                 // Create a <li> node
+      let textnode = document.createTextNode(event.data);         // Create a text node
+      node.appendChild(textnode);                              // Append the text to <li>
+      document.querySelector(".data").appendChild(node);
+
+      // console.log("new message", event.data);
 
       socket.send("message received!");
     });
@@ -24,6 +30,8 @@
 
 <body>
   <p>Hello world!</p>
+
+  <p class="data"></p>
 
 </body>
 
