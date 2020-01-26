@@ -13,7 +13,17 @@ wsServer.on("connection", client => {
 
   client.on("message", message => {
     console.log("message from client: ", message);
-  })
+
+    if (message === "stop") {
+      twitterStream.pause();
+      console.log('pause feed');
+    }
+    if (message === "restart") {
+      twitterStream.resume();
+      console.log("resume feed")
+    }
+
+  });
 
   client.send("stream : Football");
 

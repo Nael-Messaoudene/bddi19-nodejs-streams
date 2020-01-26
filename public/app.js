@@ -1,13 +1,24 @@
 
 const socket = new WebSocket(`ws://${window.location.hostname}:${window.location.port}`);
 
+const stop = document.querySelector('.stop');
+const restart = document.querySelector('.restart');
+
+
+stop.addEventListener('click', () => {
+    socket.send("stop");
+});
+
+restart.addEventListener('click', () => {
+    socket.send("restart");
+});
 
 const countryList = [
     {"Value": 0, "name": 'France'},
     {"Value": 0, "name": 'England'},
     {"Value": 0, "name": 'Portugal'},
     {"Value": 0, "name": 'Belgium'},
-    {"Value": 0, "name": 'Velgique'},
+    {"Value": 0, "name": 'Belgique'},
     {"Value": 0, "name": 'Spain'},
     {"Value": 0, "name": 'Suisse'},
     {"Value": 0, "name": 'Switzerland'},
@@ -21,6 +32,7 @@ const countryList = [
     {"Value": 0, "name": 'Germany'}
     ];
 
+
 countryList.forEach(country => {
     console.log(country.name);
 
@@ -32,9 +44,6 @@ countryList.forEach(country => {
 
 
     countryContainer.appendChild(nationality);
-
-
-
 
 });
 
@@ -84,9 +93,6 @@ socket.addEventListener('message', event => {
             let updateCountries = document.querySelector('.'+country.name);
             updateCountries.innerHTML = ''+ country.name +' : '+ country.Value ;
         });
-
-
-
     }
 
 });
