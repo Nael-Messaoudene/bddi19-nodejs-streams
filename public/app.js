@@ -5,7 +5,6 @@ const socket = new WebSocket(`ws://${window.location.hostname}:${window.location
 const countryList = [
     {"Value": 0, "name": 'France'},
     {"Value": 0, "name": 'England'},
-    {"Value": 0, "name": 'United Kingdom'},
     {"Value": 0, "name": 'Portugal'},
     {"Value": 0, "name": 'Belgium'},
     {"Value": 0, "name": 'Velgique'},
@@ -22,13 +21,29 @@ const countryList = [
     {"Value": 0, "name": 'Germany'}
     ];
 
-const regex = new RegExp(/(France)|(United Kingdom)|(England)|(Portugal)|(Belgium)|(Belgique)|(Spain)|(Suisse)|(Switzerland)|(Netherland)|(Nigeria)|(USA)|(Italia)|(India)|(Brasil)|(Malta)|(Germany)/gmi);
+countryList.forEach(country => {
+    console.log(country.name);
 
+    let countryContainer = document.querySelector('.countries');
+
+    let nationality = document.createElement('div');
+    nationality.classList.add(country.name);
+    nationality.innerHTML = ''+ country.name +' : '+ country.Value ;
+
+
+    countryContainer.appendChild(nationality);
+
+
+
+
+});
 
 
 socket.addEventListener('open', event => {
     console.log("connected", event);
 });
+
+
 
 socket.addEventListener('message', event => {
 
@@ -38,11 +53,10 @@ socket.addEventListener('message', event => {
     let tweetLocation = tweetdata.user.location;
 
     if(tweetLocation.indexOf(',') >= 0){
+
         tweetLocation = tweetLocation.replace(/, /g, '|' );
 
-
         const tweetRegex = new RegExp(`\\b${tweetLocation}\\b`, 'gmi') ;
-
 
         console.log(tweetdata);
 
@@ -67,17 +81,13 @@ socket.addEventListener('message', event => {
             }
 
 
-
-        })
+            let updateCountries = document.querySelector('.'+country.name);
+            updateCountries.innerHTML = ''+ country.name +' : '+ country.Value ;
+        });
 
 
 
     }
-
-
-
-
-
 
 });
 
