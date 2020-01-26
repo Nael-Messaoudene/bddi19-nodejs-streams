@@ -17,11 +17,13 @@ wsServer.on("connection", client => {
 
   client.send("stream : Football");
 
+
   twitterStream.on("data", tweet => {
-    client.send(tweet.text);
-    client.send(tweet.user.location);
+
+    client.send(JSON.stringify(tweet));
 
   });
+
 
 
 

@@ -9,41 +9,7 @@
 
 
   <link rel="stylesheet" href="style.css" as="style" >
-
-
-  <script>
-
-
-
-
-    console.log("It works!");
-    const socket = new WebSocket(`ws://${window.location.hostname}:${window.location.port}`);
-
-    socket.addEventListener('open', event => {
-      console.log("connected", event);
-    });
-
-    socket.addEventListener('message', event => {
-
-      let node = document.createElement("LI");
-      let textnode = document.createTextNode(event.data);
-      node.appendChild(textnode);
-      document.querySelector(".data").appendChild(node);
-
-      // console.log("new message", event.data);
-
-      socket.send("message received!");
-    });
-
-
-
-
-
-
-
-
-
-  </script>
+  <script src="app.js"></script>
 </head>
 
 <body style="margin: 0; min-height: 100vh; width: 100vw; overflow: hidden">
