@@ -35,73 +35,44 @@ socket.addEventListener('message', event => {
 
     let tweetdata = JSON.parse(event.data);
 
-    const tweetRegex = new RegExp(  `${tweetdata.user.location}`  , 'gmi') ;
+    let tweetLocation = tweetdata.user.location;
 
-    console.log(tweetdata);
-
-    let node = document.createElement("LI");
-    let textnode = document.createTextNode(tweetdata.text);
-    node.appendChild(textnode);
-    document.querySelector(".data").appendChild(node);
-
-    console.log(tweetdata.user.location);
-
-    socket.send("message received!");
+    if(tweetLocation.indexOf(',') >= 0){
+        tweetLocation = tweetLocation.replace(/, /g, '|' );
 
 
+        const tweetRegex = new RegExp(`\\b${tweetLocation}\\b`, 'gmi') ;
 
 
+        console.log(tweetdata);
+
+        let node = document.createElement("LI");
+        let textnode = document.createTextNode(tweetdata.text);
+        node.appendChild(textnode);
+        document.querySelector(".data").appendChild(node);
+
+        console.log(tweetLocation);
+
+        socket.send("message received!");
 
 
+        countryList.forEach((country, i) => {
 
+            console.log(country);
 
-    console.log(countryList);
+            console.log(countryList[i].name);
 
-
-    countryList.forEach((country, i) => {
-
-        // console.log(countryList[i]);
-
-
-        if( (tweetRegex.test(countryList[i].name)) ){
-
-            console.log('YEEEEEEEEEAH BIATCH');
-
-        }
-
-        // console.log(regex.test(tweetdata.user.location), countryList[i].name);
-
-        // if (countryList[i].name === tweetdata.user.location) {
-        //     console.log('INCHALLUX SA MARCHE');
-        //     countryList[i].Value++;
-        // }
-
-
-    })
-        // console.log(obj);
+            if( (tweetRegex.test(countryList[i].name)) ){
+                countryList[i].Value++;
+            }
 
 
 
-
-        // obj.forEach((country, i) => {
-        //     // console.log(country, i);
-        //
-        //
-        //     if (regex.test(country)) {
-        //         console.log("Matching");
-        //     }
-        //
-        //
-        // })
+        })
 
 
-    //         console.log(objectKey," === object");
-    // var value = countryList[objectKey]++;
-    //
-    // console.log(value, '----> value increment', objectKey);
-    //
-    // console.log(index,"---> index");
 
+    }
 
 
 
